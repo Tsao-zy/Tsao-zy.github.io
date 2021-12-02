@@ -1,0 +1,551 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/label_icon.png">
+  <link rel="icon" href="/img/label_icon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="John Doe">
+  <meta name="keywords" content="">
+  <meta name="description" content="装饰器  functools.wraps 12345678910111213141516171819from functools import wrapsdef decorators(func):    @wraps(func)    def wrappers(*args, **kwargs):        &quot;&quot;&quot;this is wrappers docs.&amp;qu">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Django框架学习">
+<meta property="og:url" content="http://example.com/2021/12/03/django-01/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="装饰器  functools.wraps 12345678910111213141516171819from functools import wrapsdef decorators(func):    @wraps(func)    def wrappers(*args, **kwargs):        &quot;&quot;&quot;this is wrappers docs.&amp;qu">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-12-02T16:45:40.776Z">
+<meta property="article:modified_time" content="2021-12-02T17:07:04.619Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="django">
+<meta name="twitter:card" content="summary_large_image">
+  
+  <title>Django框架学习 - Hexo</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css" />
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.12","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname"}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Tsao-zy</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/background.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="Django框架学习">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-12-03 00:45" pubdate>
+        2021年12月3日 凌晨
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      5.8k 字
+    </span>
+  
+
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      18 分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Django框架学习</h1>
+            
+            <div class="markdown-body">
+              <ul>
+<li><p>装饰器</p>
+<ul>
+<li><p><code>functools.wraps</code></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> functools <span class="hljs-keyword">import</span> wraps<br><br><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">decorators</span>(<span class="hljs-params">func</span>):</span><br><span class="hljs-meta">    @wraps(<span class="hljs-params">func</span>)</span><br>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">wrappers</span>(<span class="hljs-params">*args, **kwargs</span>):</span><br>        <span class="hljs-string">&quot;&quot;&quot;this is wrappers docs.&quot;&quot;&quot;</span><br>        func(*args, **kwargs)<br>    <span class="hljs-keyword">return</span> wrappers<br><br><span class="hljs-meta">@decorators</span><br><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">func</span>():</span><br>    <span class="hljs-string">&quot;&quot;&quot;this is func docs.&quot;&quot;&quot;</span><br>    <span class="hljs-keyword">pass</span><br><br>f = func()<br><span class="hljs-comment"># func, if no @wraps, will be `wrappers`</span><br>f.__name__<br><span class="hljs-comment"># this is func docs. if no @ wraps, will be `this is wrappers docs.`</span><br>f.__doc__<br></code></pre></td></tr></table></figure></li>
+<li><p>装饰器主要用处，在原代码的基础上添加新功能，而不需要改动原代码。应用举例：后台日志，授权</p>
+</li>
+</ul>
+</li>
+<li><p>Session</p>
+<p>Cookies和Session</p>
+<ul>
+<li>当客户端首次访问服务端时，服务端会创建会话对象，并为该对象生成JsessionID，并将该信息包装成Cookies发送给客户端（浏览器），客户端会将该信息保存在本地。当客户端再次发送请求时，将本地的Cookies放入Request Headers中，发送给服务端，服务端解析Cookies，比对JsessionID，找到相应的会话对象，为之服务。</li>
+</ul>
+</li>
+<li><p>Authentication</p>
+</li>
+</ul>
+<ul>
+<li><p>RSF 分页器</p>
+<p>可以重写<code>PageNumberPagination</code>类的<code>get_paginated_response()</code>方法，并在setting.py中<code>RESTFRAME_WORK</code>模块添加了默认分页调用</p>
+</li>
+</ul>
+<ul>
+<li><p>send_mail</p>
+<p>django自带send_mail，如果要使用第三方邮件（如网易），可以在第三方获得授权码，并将授权码放入setting.py的EMAIL_HOST_PASSWORD配置中。</p>
+</li>
+</ul>
+<ul>
+<li><p>Mixin</p>
+<p>中文翻译为混入，主要用在多继承中。如果继承时单一继承，那么子类的父类是清晰的，但如果涉及到多继承，父类就是模糊的。Mixin也是多继承，但如果声明为Mixin，则表明该类是作为功能添加到继承条线中的，而不是作为父类继承的。</p>
+</li>
+</ul>
+<ul>
+<li><p>Model</p>
+<ul>
+<li><p>当字段设置为<code>ForeignKey</code>时，会在字段后自动添加_id来创建数据库表中的列名</p>
+</li>
+<li><p>自动添加<code>id</code>字段</p>
+</li>
+<li><p><code>ManyToManyField</code>为多对多的关系，如老师和学生，一个老师可以教多个学生，一个学生可以被多个老师教。在Django中，使用多对多的映射关系，会自动创建新表，表中有两个字段，分别是两张表的id。例如，创建Teacher表，在Student中设置mentor为多对多映射，则teacher字段不会再Student表中，而是会生成新表mentor_Student，并分别有student_id和teacher_id。</p>
+</li>
+<li><p>blank和null区别</p>
+<ul>
+<li><code>blank=True, null=True</code>：允许插入数据时该字段为空</li>
+<li><code>blank=False, null=False</code>：插入数据时该字段不为空</li>
+<li><code>blank=False, null=True</code>：在网页表单上插入数据时，该字段不能为空，但在通过<code>save()</code>、shell等非表单形式保存数据时，允许为空</li>
+<li><code>blank=True, null=False</code>：不希望用户在表单中创建，而是通过在save方法中根据其他字段生成</li>
+</ul>
+<p>当出现第四种设置时，并不总会报错，因为在处理某些在数据库中实际的存储值为字符串的Field时，会默认转换为””</p>
+</li>
+<li><p>正向查询和反向查询（OneToOneField, ForeignKey参数（on_delete, related_name, to_field)</p>
+<ul>
+<li><p><code>objects.get()</code>返回的时Model类型、<code>objects.filter()</code> 、 <code>objects.all()</code>返回的是QuerySet类型</p>
+</li>
+<li><p>外键正向查询（A表有外键fk指向B表(字段有a,b,c,d)，通过A表查询B表）</p>
+<ol>
+<li>A.object.values(“fk__a”)</li>
+<li>A.ojects.get(condition).fk.a</li>
+</ol>
+</li>
+<li><p>外键反向查询（同上，通过B表查询A表）</p>
+<p>如果外键没有设置related_name</p>
+<ol>
+<li>B.objects.get(condition).a_set.all()</li>
+</ol>
+<p><em>带外键的表名_set</em></p>
+<p>如果外键设置related_name，假设为foreign</p>
+<ol>
+<li>B.objects.get(condition).foreign.all()</li>
+</ol>
+</li>
+<li><p>OneToOneField、ManytoOneField(ForeignKey)、ManyToManyField</p>
+<ul>
+<li><p>外键和多对多的外键查询方式（正向和反向）是一样的，一对一查询正向和反向都是一样的方式，举例：</p>
+<p>A有一对一字段a（指向C），一般字段b， C有字段d,e</p>
+<p>A.objects.get(condition).c.d</p>
+<p>C.objects.get(condition).a.b</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><p>Backend</p>
+<p>用于用户登录的密码验证</p>
+</li>
+<li><p>Serializer</p>
+<p>序列化，主要用处是将后端数据库里的字段，通过model转换为模型对象（orm），serilzers则负责将模型对象转换为json、xml等通用格式。如果不适用序列化，则需要将模型对象进行强制类型转换，再编码为json格式，如果涉及外键，则需要进行拼接再转换类型并编码，非常麻烦。</p>
+<p>SerializerMethodField(method_name=None)<br>method_name - 要调用的序列化程序上方法的名称。如果不包含此默认值get_<field_name>。</p>
+</li>
+<li><p>Django接口自动化——-drf_yasg</p>
+<ol>
+<li><p>安装依赖包</p>
+</li>
+<li><p>接口改造</p>
+<ul>
+<li>url.py</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> rest_framework <span class="hljs-keyword">import</span> permissions<br><span class="hljs-keyword">from</span> drf_yasg.views <span class="hljs-keyword">import</span> get_schema_view<br><span class="hljs-keyword">from</span> drf_yasg <span class="hljs-keyword">import</span> openapi<br><br>schema_view = get_schema_view(<br>   openapi.Info(<br>      title=<span class="hljs-string">&quot;Snippets API&quot;</span>,<br>      default_version=<span class="hljs-string">&#x27;v1&#x27;</span>,<br>      description=<span class="hljs-string">&quot;Test description&quot;</span>,<br>      contact=openapi.Contact(email=<span class="hljs-string">&quot;contact@snippets.local&quot;</span>),<br>      license=openapi.License(name=<span class="hljs-string">&quot;BSD License&quot;</span>),<br>   ),<br>   public=<span class="hljs-literal">True</span>,<br>   permission_classes=(permissions.AllowAny,),<br>)<br><br>urlpatterns += [<br>   url(<span class="hljs-string">r&#x27;^swagger(?P&lt;format&gt;\.json|\.yaml)$&#x27;</span>, schema_view.without_ui(cache_timeout=<span class="hljs-number">0</span>), name=<span class="hljs-string">&#x27;schema-json&#x27;</span>),<br>   url(<span class="hljs-string">r&#x27;^swagger/$&#x27;</span>, schema_view.with_ui(<span class="hljs-string">&#x27;swagger&#x27;</span>, cache_timeout=<span class="hljs-number">0</span>), name=<span class="hljs-string">&#x27;schema-swagger-ui&#x27;</span>),<br>   url(<span class="hljs-string">r&#x27;^redoc/$&#x27;</span>, schema_view.with_ui(<span class="hljs-string">&#x27;redoc&#x27;</span>, cache_timeout=<span class="hljs-number">0</span>), name=<span class="hljs-string">&#x27;schema-redoc&#x27;</span>),<br>]<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>view.py</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> drf_yasg.utils <span class="hljs-keyword">import</span> swagger_auto_schema, swagger_serializer_method<br><span class="hljs-keyword">from</span> drf_yasg <span class="hljs-keyword">import</span> openapi<br><br><br><span class="hljs-string">&#x27;&#x27;&#x27;</span><br><span class="hljs-string">CBV试图，在get post put delete前加此代码</span><br><span class="hljs-string">&#x27;&#x27;&#x27;</span><br>questionview_post_parm = openapi.Schema(<span class="hljs-built_in">type</span>=openapi.TYPE_OBJECT,<br>                                    properties=&#123;<br>                                        <span class="hljs-string">&#x27;pk&#x27;</span>: openapi.Schema(description=<span class="hljs-string">&#x27;待更新问题的编号&#x27;</span>,<br>                                                                <span class="hljs-built_in">type</span>=openapi.TYPE_INTEGER,),<br>                                        &#125;,<br>                                    )<br>questionview_post_response = &#123;<span class="hljs-number">200</span>: openapi.Response(description=<span class="hljs-string">&#x27;添加成功&#x27;</span>, <br>                                                    examples=&#123;<span class="hljs-string">&#x27;json&#x27;</span>: &#123;<span class="hljs-string">&#x27;code&#x27;</span>: <span class="hljs-number">200</span>, <span class="hljs-string">&#x27;msg&#x27;</span>: <span class="hljs-string">&#x27;问题添加成功&#x27;</span>&#125;<br>                                                                &#125;<br>                                                    )<br>                                &#125;<br><br><span class="hljs-meta">@swagger_auto_schema(<span class="hljs-params"></span></span><br><span class="hljs-params"><span class="hljs-meta">                    operation_description=<span class="hljs-string">&#x27;cud/(?P&lt;pk&gt;\d+)/&#x27;</span>,</span></span><br><span class="hljs-params"><span class="hljs-meta">                    operation_summary=<span class="hljs-string">&quot;上传问题库或插入单条问题&quot;</span>,</span></span><br><span class="hljs-params"><span class="hljs-meta">                    manual_parameters=[</span></span><br><span class="hljs-params"><span class="hljs-meta">                        openapi.Parameter(<span class="hljs-params"><span class="hljs-string">&#x27;question&#x27;</span>, openapi.IN_QUERY, description=<span class="hljs-string">&#x27;问题&#x27;</span>, <span class="hljs-built_in">type</span>=openapi.TYPE_STRING</span>),</span></span><br><span class="hljs-params"><span class="hljs-meta">                        openapi.Parameter(<span class="hljs-params"><span class="hljs-string">&#x27;catagory_id&#x27;</span>, openapi.IN_QUERY, description=<span class="hljs-string">&#x27;问题类别&#x27;</span>, <span class="hljs-built_in">type</span>=openapi.TYPE_STRING</span>),</span></span><br><span class="hljs-params"><span class="hljs-meta">                        openapi.Parameter(<span class="hljs-params"><span class="hljs-string">&#x27;answer&#x27;</span>, openapi.IN_QUERY, description=<span class="hljs-string">&#x27;回答&#x27;</span>, <span class="hljs-built_in">type</span>=openapi.TYPE_STRING</span>),</span></span><br><span class="hljs-params"><span class="hljs-meta">                        openapi.Parameter(<span class="hljs-params"><span class="hljs-string">&#x27;file&#x27;</span>, openapi.IN_QUERY, description=<span class="hljs-string">&#x27;excel形式问题库&#x27;</span>, <span class="hljs-built_in">type</span>=openapi.TYPE_FILE</span>),],</span></span><br><span class="hljs-params"><span class="hljs-meta">                    request_body=questionview_post_parm,</span></span><br><span class="hljs-params"><span class="hljs-meta">                    responses=questionview_post_response</span>)</span><br><br><br><span class="hljs-string">&#x27;&#x27;&#x27;</span><br><span class="hljs-string">openapi.IN_HEADER，openapi.IN_QUERY可以参考官方文档 https://drf-yasg.readthedocs.io/en/stable/index.html</span><br><span class="hljs-string">&#x27;&#x27;&#x27;</span><br>USER_AUTH = [openapi.Parameter(<span class="hljs-string">&#x27;Authorization&#x27;</span>, <br>                               openapi.IN_HEADER, <br>                               description=<span class="hljs-string">&#x27;用户cookies信息&#x27;</span>, <br>                               <span class="hljs-built_in">type</span>=openapi.TYPE_STRING,<br>                               required=<span class="hljs-literal">True</span>)]<br><span class="hljs-meta">@swagger_auto_schema(<span class="hljs-params"></span></span><br><span class="hljs-params"><span class="hljs-meta">    operation_description=<span class="hljs-string">&quot;/question/collection&quot;</span>,</span></span><br><span class="hljs-params"><span class="hljs-meta">    operation_summary=<span class="hljs-string">&quot;用户收藏查询&quot;</span>,</span></span><br><span class="hljs-params"><span class="hljs-meta">    manual_parameters=[</span></span><br><span class="hljs-params"><span class="hljs-meta">        openapi.Parameter(<span class="hljs-params"><span class="hljs-string">&#x27;more&#x27;</span>, </span></span></span><br><span class="hljs-params"><span class="hljs-params"><span class="hljs-meta">                            openapi.IN_QUERY,</span></span></span><br><span class="hljs-params"><span class="hljs-params"><span class="hljs-meta">                            description=<span class="hljs-string">&#x27;显示多于五条记录&#x27;</span>,</span></span></span><br><span class="hljs-params"><span class="hljs-params"><span class="hljs-meta">                            <span class="hljs-built_in">type</span>=openapi.TYPE_BOOLEAN</span>),</span></span><br><span class="hljs-params"><span class="hljs-meta">        USER_AUTH[<span class="hljs-number">0</span>]</span></span><br><span class="hljs-params"><span class="hljs-meta">        ]</span></span><br><span class="hljs-params"><span class="hljs-meta"></span>)</span><br><br><br><span class="hljs-string">&#x27;&#x27;&#x27;</span><br><span class="hljs-string">FBV， method=&#x27;get&#x27; &#x27;post&#x27;, &#x27;put&#x27;, &#x27;delete&#x27;</span><br><span class="hljs-string">&#x27;&#x27;&#x27;</span><br>search_questions_get_parm = openapi.Schema(<span class="hljs-built_in">type</span>=openapi.TYPE_OBJECT,<br>                                       properties=&#123;<br>                                           <span class="hljs-string">&#x27;keyword&#x27;</span>: openapi.Schema(description=<span class="hljs-string">&#x27;提问的问题&#x27;</span>,<br>                                                                     <span class="hljs-built_in">type</span>=openapi.TYPE_STRING,),<br>                                           &#125;,<br>                                       )<br>search_questions_get_response = &#123;<span class="hljs-number">200</span>: openapi.Response(description=<span class="hljs-string">&#x27;response&#x27;</span>, <br>                                                       examples=&#123;<span class="hljs-string">&#x27;json&#x27;</span>: &#123;<span class="hljs-string">&quot;status&quot;</span>: <span class="hljs-number">200</span>, <span class="hljs-string">&quot;msg&quot;</span>: <span class="hljs-string">&quot;发送成功&quot;</span>&#125;<br>                                                                 &#125;<br>                                                       )<br>                                 &#125;<br><span class="hljs-meta">@swagger_auto_schema(<span class="hljs-params">method=<span class="hljs-string">&#x27;get&#x27;</span>,</span></span><br><span class="hljs-params"><span class="hljs-meta">                     operation_description=<span class="hljs-string">&#x27;/question/search_questions/&#x27;</span>,</span></span><br><span class="hljs-params"><span class="hljs-meta">                     operation_summary=<span class="hljs-string">&quot;问题提问(仅更新热门问题数据库)&quot;</span>,</span></span><br><span class="hljs-params"><span class="hljs-meta">                     <span class="hljs-comment"># request_body=search_questions_get_parm,</span></span></span><br><span class="hljs-params"><span class="hljs-meta">                     responses=search_questions_get_response</span>)</span><br></code></pre></td></tr></table></figure></li>
+</ol>
+</li>
+</ul>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E5%90%8E%E7%AB%AF/">后端</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/django/">django</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/12/03/ocr-02/">
+                        <span class="hidden-mobile">OCR识别算法(二) 文字识别</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  
+    <script  src="https://cdn.jsdelivr.net/npm/tocbot@4/dist/tocbot.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4/anchor.min.js" ></script>
+  
+  
+    <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js" ></script>
+  
+
+
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>

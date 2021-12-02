@@ -7,8 +7,8 @@
 
 <head>
   <meta charset="UTF-8">
-  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
-  <link rel="icon" href="/img/favicon.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/label_icon.png">
+  <link rel="icon" href="/img/label_icon.png">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   
@@ -190,6 +190,178 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
+        <a href="/2021/12/03/django-01/" target="_self">
+          Django框架学习
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/12/03/django-01/" target="_self">
+          
+          
+            
+          
+          
+装饰器
+
+functools.wraps
+12345678910111213141516171819from functools import wrapsdef decorators(func):    @wraps(func)    def wrappers(*args, **kwargs):        &quot;&quot;&quot;this is wrappers docs.&qu
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-12-03 00:45" pubdate>
+              2021-12-03
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E5%90%8E%E7%AB%AF/">后端</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/django/">django</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2021/12/03/ocr-02/" target="_self">
+          OCR识别算法(二) 文字识别
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/12/03/ocr-02/" target="_self">
+          
+          
+            
+          
+          crnn+ctc识别在标签处理上，将char_std_5990.txt的文字转换为字典，key为序号，value为汉字。每张图片上的文字已经给定了，使用上面的字典做映射，将文字序列映射为数字序列。在模型训练时，对于每张图片，转换成称灰度图片（convert(&#39;L&#39;))，再经过尺寸变换，作为网络的输入，则输入值的标签为文字映射的数字序列。
+即图片像素值——&gt; 数字序列的映射，预
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-12-03 00:41" pubdate>
+              2021-12-03
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%AE%97%E6%B3%95/">深度学习算法</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/OCR/">OCR</a>
+            
+              <a href="/tags/CRNN/">CRNN</a>
+            
+              <a href="/tags/CTC/">CTC</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2021/12/03/ocr-01/" target="_self">
+          OCR识别算法(一) 文字定位
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/12/03/ocr-01/" target="_self">
+          
+          
+            
+          
+          AdvancedEASTAdvancedEAST是文字定位的经典模型，网络结构主体为VGG16，在本文中，重点关图像数据处理、损失函数和网络输出处理等内容。
+
+网络结构
+
+
+
+图像预处理——preprocess.py
+batch_reorder_vertexes
+reorder_vetexes的批量处理
+
+reorder_vertexes
+在标签中，有每个文字条目的位置，该函数主要是重新对位置进行
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-12-03 00:10" pubdate>
+              2021-12-03
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%AE%97%E6%B3%95/">深度学习算法</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/OCR/">OCR</a>
+            
+              <a href="/tags/AdvancedEAST/">AdvancedEAST</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
         <a href="/2021/11/09/leetcode-1/" target="_self">
           两小题算法
         </a>
@@ -220,6 +392,24 @@
           </div>
         
         
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%AE%97%E6%B3%95/">数据结构算法</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/LeetCode/">LeetCode</a>
+            
+              <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/">数据结构与算法</a>
+            
+              <a href="/tags/%E5%89%91%E6%8C%87offer/">剑指offer</a>
+            
+          </div>
         
       </div>
     </article>
