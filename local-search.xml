@@ -4,6 +4,31 @@
   
   
   <entry>
+    <title>卷积层、池化层图解</title>
+    <link href="/2021/12/04/convolution_layer/"/>
+    <url>/2021/12/04/convolution_layer/</url>
+    
+    <content type="html"><![CDATA[<p>详细说明卷积层和池化层的计算过程</p><h3 id="卷积层"><a href="#卷积层" class="headerlink" title="卷积层"></a>卷积层</h3><ol><li><p>Stride</p><p><img src="/img/conv-stride.png"></p></li><li><p>Padding</p><p><img src="/img/conv-padding.png"></p></li><li><p>卷积核参数个数</p><p><img src="/img/conv-kernels.png"></p></li></ol><h3 id="池化层"><a href="#池化层" class="headerlink" title="池化层"></a>池化层</h3><p><img src="/img/maxpooling.png"></p>]]></content>
+    
+    
+    <categories>
+      
+      <category>深度学习算法</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>CNN</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>Django框架学习</title>
     <link href="/2021/12/03/django-01/"/>
     <url>/2021/12/03/django-01/</url>

@@ -14,26 +14,26 @@
   
   <meta name="theme-color" content="#2f4154">
   <meta name="description" content="">
-  <meta name="author" content="John Doe">
+  <meta name="author" content="tsao-zy">
   <meta name="keywords" content="">
   <meta name="description" content="crnn+ctc识别在标签处理上，将char_std_5990.txt的文字转换为字典，key为序号，value为汉字。每张图片上的文字已经给定了，使用上面的字典做映射，将文字序列映射为数字序列。在模型训练时，对于每张图片，转换成称灰度图片（convert(&#39;L&#39;))，再经过尺寸变换，作为网络的输入，则输入值的标签为文字映射的数字序列。 即图片像素值——&gt; 数字序列的映射，预">
 <meta property="og:type" content="article">
 <meta property="og:title" content="OCR识别算法(二) 文字识别">
 <meta property="og:url" content="http://example.com/2021/12/03/ocr-02/index.html">
-<meta property="og:site_name" content="Hexo">
+<meta property="og:site_name" content="Tsao">
 <meta property="og:description" content="crnn+ctc识别在标签处理上，将char_std_5990.txt的文字转换为字典，key为序号，value为汉字。每张图片上的文字已经给定了，使用上面的字典做映射，将文字序列映射为数字序列。在模型训练时，对于每张图片，转换成称灰度图片（convert(&#39;L&#39;))，再经过尺寸变换，作为网络的输入，则输入值的标签为文字映射的数字序列。 即图片像素值——&gt; 数字序列的映射，预">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://img-blog.csdnimg.cn/20190326174838218.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2xpdXhpYW9oZW5nMTk5Mg==,size_16,color_FFFFFF,t_70">
 <meta property="article:published_time" content="2021-12-02T16:41:33.003Z">
 <meta property="article:modified_time" content="2021-12-02T17:07:17.788Z">
-<meta property="article:author" content="John Doe">
+<meta property="article:author" content="tsao-zy">
 <meta property="article:tag" content="OCR">
 <meta property="article:tag" content="CRNN">
 <meta property="article:tag" content="CTC">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://img-blog.csdnimg.cn/20190326174838218.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2xpdXhpYW9oZW5nMTk5Mg==,size_16,color_FFFFFF,t_70">
   
-  <title>OCR识别算法(二) 文字识别 - Hexo</title>
+  <title>OCR识别算法(二) 文字识别 - Tsao</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
 
@@ -190,7 +190,7 @@
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
       <time datetime="2021-12-03 00:41" pubdate>
-        2021年12月3日 凌晨
+        2021年12月3日
       </time>
     </span>
   
@@ -214,6 +214,14 @@
   
 
   
+  
+    
+      <!-- 不蒜子统计文章PV -->
+      <span id="busuanzi_container_page_pv" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="busuanzi_value_page_pv"></span> 次
+      </span>
+    
   
 </div>
 
@@ -368,7 +376,7 @@
 
   <footer class="text-center mt-5 py-3">
   <div class="footer-content">
-     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+     <p>Keep <i class="iconfont icon-love"></i>  Running</p>  
   </div>
   
 
@@ -428,6 +436,8 @@
   
 
 
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
 
 
 
