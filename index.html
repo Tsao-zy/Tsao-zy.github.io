@@ -50,7 +50,11 @@
   </script>
   <script  src="/js/utils.js" ></script>
   <script  src="/js/color-schema.js" ></script>
-<meta name="generator" content="Hexo 5.4.0"></head>
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.0"></head>
 
 
 <body>
@@ -190,6 +194,59 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
+        <a href="/2021/12/07/ocr-ctc/" target="_self">
+          OCR-ASR基础：CTC解读
+        </a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/12/07/ocr-ctc/" target="_self">
+          
+          
+            
+          
+          CTC主要用在文字识别、语音识别的最后一个环节，用于标签对齐。使用CTC的最终目的是得到梯度值，用来更新网络的参数。
+$S$​​​​为定义在$D_{\chi \times \Zeta}$​​​​分布的训练数据，输入空间$\chi=(\mathbb R^m)^$​​​​为$m$​​​​维向量，目标空间$\Zeta =L^$​​​​是定义在有限字符$L$​​​​上的集合。$S: (x,z)$​​​​.
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-12-07 22:32" pubdate>
+              2021-12-07
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">深度学习</a>
+            
+              <a href="/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E8%AE%BA%E6%96%87%E8%A7%A3%E8%AF%BB/">论文解读</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/OCR/">OCR</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
         <a href="/2021/12/04/convolution_layer/" target="_self">
           卷积层、池化层图解
         </a>
@@ -319,7 +376,7 @@ functools.wraps
             
           
           crnn+ctc识别在标签处理上，将char_std_5990.txt的文字转换为字典，key为序号，value为汉字。每张图片上的文字已经给定了，使用上面的字典做映射，将文字序列映射为数字序列。在模型训练时，对于每张图片，转换成称灰度图片（convert(&#39;L&#39;))，再经过尺寸变换，作为网络的输入，则输入值的标签为文字映射的数字序列。
-即图片像素值——&gt; 数字序列的映射，预
+即图片像素值———&gt; 数字序列的映射，
         </a>
       </p>
 
@@ -373,7 +430,8 @@ functools.wraps
           
             
           
-          AdvancedEASTAdvancedEAST是文字定位的经典模型，网络结构主体为VGG16，在本文中，重点关图像数据处理、损失函数和网络输出处理等内容。
+          AdvancedEASTc=±a2+b2c = \pm\sqrt{a^2 + b^2}c=±a2+b2​
+AdvancedEAST是文字定位的经典模型，网络结构主体为VGG16，在本文中，重点关图像数据处理、损失函数和网络输出处理等内容。
 
 网络结构
 
@@ -383,8 +441,7 @@ functools.wraps
 batch_reorder_vertexes
 reorder_vetexes的批量处理
 
-reorder_vertexes
-在标签中，有每个文字条目的位置，该函数主要是重新对位置进行
+reord
         </a>
       </p>
 

@@ -16,25 +16,25 @@
   <meta name="description" content="">
   <meta name="author" content="tsao-zy">
   <meta name="keywords" content="">
-  <meta name="description" content="详细说明卷积层和池化层的计算过程 卷积层 Stride   Padding   卷积核参数个数    池化层">
+  <meta name="description" content="CTC主要用在文字识别、语音识别的最后一个环节，用于标签对齐。使用CTC的最终目的是得到梯度值，用来更新网络的参数。 $S$​​​​为定义在$D_{\chi \times \Zeta}$​​​​分布的训练数据，输入空间$\chi&#x3D;(\mathbb R^m)^$​​​​为$m$​​​​维向量，目标空间$\Zeta &#x3D;L^$​​​​是定义在有限字符$L$​​​​上的集合。$S: (x,z)$​​​​.">
 <meta property="og:type" content="article">
-<meta property="og:title" content="卷积层、池化层图解">
-<meta property="og:url" content="http://example.com/2021/12/04/convolution_layer/index.html">
+<meta property="og:title" content="OCR-ASR基础：CTC解读">
+<meta property="og:url" content="http://example.com/2021/12/07/ocr-ctc/index.html">
 <meta property="og:site_name" content="Tsao">
-<meta property="og:description" content="详细说明卷积层和池化层的计算过程 卷积层 Stride   Padding   卷积核参数个数    池化层">
+<meta property="og:description" content="CTC主要用在文字识别、语音识别的最后一个环节，用于标签对齐。使用CTC的最终目的是得到梯度值，用来更新网络的参数。 $S$​​​​为定义在$D_{\chi \times \Zeta}$​​​​分布的训练数据，输入空间$\chi&#x3D;(\mathbb R^m)^$​​​​为$m$​​​​维向量，目标空间$\Zeta &#x3D;L^$​​​​是定义在有限字符$L$​​​​上的集合。$S: (x,z)$​​​​.">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://example.com/img/conv-stride.png">
-<meta property="og:image" content="http://example.com/img/conv-padding.png">
-<meta property="og:image" content="http://example.com/img/conv-kernels.png">
-<meta property="og:image" content="http://example.com/img/maxpooling.png">
-<meta property="article:published_time" content="2021-12-04T09:26:41.903Z">
-<meta property="article:modified_time" content="2021-12-04T09:44:43.700Z">
+<meta property="og:image" content="http://example.com/img/lstm.png">
+<meta property="og:image" content="http://example.com/img/forward.png">
+<meta property="og:image" content="http://example.com/img/backward.png">
+<meta property="og:image" content="http://example.com/img/label.png">
+<meta property="article:published_time" content="2021-12-07T14:32:12.269Z">
+<meta property="article:modified_time" content="2021-12-07T16:34:25.909Z">
 <meta property="article:author" content="tsao-zy">
-<meta property="article:tag" content="CNN">
+<meta property="article:tag" content="OCR">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="http://example.com/img/conv-stride.png">
+<meta name="twitter:image" content="http://example.com/img/lstm.png">
   
-  <title>卷积层、池化层图解 - Tsao</title>
+  <title>OCR-ASR基础：CTC解读 - Tsao</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
 
@@ -184,7 +184,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="卷积层、池化层图解">
+            <span class="h2" id="subtitle" title="OCR-ASR基础：CTC解读">
               
             </span>
 
@@ -194,8 +194,8 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2021-12-04 17:26" pubdate>
-        2021年12月4日
+      <time datetime="2021-12-07 22:32" pubdate>
+        2021年12月7日
       </time>
     </span>
   
@@ -205,7 +205,7 @@
   
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      42 字
+      2.8k 字
     </span>
   
 
@@ -214,7 +214,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      1 分钟
+      9 分钟
     </span>
   
 
@@ -251,22 +251,114 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">卷积层、池化层图解</h1>
+            <h1 style="display: none">OCR-ASR基础：CTC解读</h1>
             
             <div class="markdown-body">
-              <p>详细说明卷积层和池化层的计算过程</p>
-<h3 id="卷积层"><a href="#卷积层" class="headerlink" title="卷积层"></a>卷积层</h3><ol>
-<li><p>Stride</p>
-<p><img src="/img/conv-stride.png" srcset="/img/loading.gif" lazyload alt=""></p>
-</li>
-<li><p>Padding</p>
-<p><img src="/img/conv-padding.png" srcset="/img/loading.gif" lazyload alt=""></p>
-</li>
-<li><p>卷积核参数个数</p>
-<p><img src="/img/conv-kernels.png" srcset="/img/loading.gif" lazyload alt=""></p>
-</li>
-</ol>
-<h3 id="池化层"><a href="#池化层" class="headerlink" title="池化层"></a>池化层</h3><p><img src="/img/maxpooling.png" srcset="/img/loading.gif" lazyload alt=""></p>
+              <p>CTC主要用在文字识别、语音识别的最后一个环节，用于标签对齐。使用CTC的最终目的是得到梯度值，用来更新网络的参数。</p>
+<p>$S$​​​​为定义在$D_{\chi \times \Zeta}$​​​​分布的训练数据，输入空间$\chi=(\mathbb R^m)^<em>$​​​​为$m$​​​​维向量，目标空间$\Zeta =L^</em>$​​​​是定义在有限字符$L$​​​​上的集合。$S: (x,z)$​​​​. $x$​​​​为输入，$z$​​​​为输出，在ctc中就是标记的字符序列。</p>
+<p>目的就是训练分类器，$\chi \rightarrow \Zeta $的映射，使得输出的字符和标签的错误最小。</p>
+<p>原始图片经过CNN处理后，转换为$m\times T$​​​的序列,即长度为$T$​​​的输入序列$\pmb x$​​​。假设经过RNN（LSTM）网络$N_w[(\mathbb R^m)^T \rightarrow (\mathbb R^n)^T]$​​​处理后，输出为$\pmb y$​​​，$y_k^t$​​​表示在时间$t$​​​时，RNN网络第$k$​​​个输出单元的值。在这里表示为$t$​​​时刻第$k$​​​个字符标签$l_k$​​​​​​的概率（经过softmax处理）。</p>
+<script type="math/tex; mode=display">
+\pmb x=(\vec x^1,\vec x^2,\cdots,\vec x^T)\\
+
+\vec x^t=(x_1^t,x_2^t,\cdots,x_m^t)'\\
+
+\pmb y=(\vec y^1,\vec y^2,\cdots,\vec y^T)$\\
+
+\vec y^t=(y_1^t,y_2^t,\cdots,y_n^t)'</script><p><img src="/img/lstm.png" srcset="/img/loading.gif" lazyload alt=""></p>
+<script type="math/tex; mode=display">
+L'=L \cup \{blank\}\\
+p(\pi|x)=\prod_{t=1}^Ty_{\pi_t}^{t}, \forall \pi \in L'^T \tag{1.1}</script><p>$\pi$​表示输出字符串，上面的公式的意思是假设每个字符的输出概率时独立的，那么整个字符串的概率就是每个字符概率的乘积。</p>
+<p>($\pi<em>t$​表示第$t$​个时刻，softmax处理后的得到的标签字符。假设标签的集合${a,b,c}$​，$t=1$​时，BiLSTM输出为${0.2,0.3,0.5}$​，此时输出$c$​的概率最大，所以$\pi_1=c$​，$y</em>{\pi_1}^{1}=0.5$​)</p>
+<p>定义多对一的变换$\Beta：L’^T\rightarrow L^T$，主要是用于去除多余的空格和重复的字符。例如$\Beta(a-ab-)=\Beta(-aa—abb)=aab$</p>
+<p>那么经过上述过程处理后，对于字符串$l$​​的输出概率为</p>
+<script type="math/tex; mode=display">
+p(l|x)=\sum_{\pi\in \Beta^{-1}(l)}p(\pi|x)</script><p>上面的意思是，字符串$l$的输出概率时所有经过$B$变换后为$l$的字符串概率之和。</p>
+<p>那么最终，我们只要找到最大概率的字符串作为输出即可，即</p>
+<script type="math/tex; mode=display">
+h(x)=\text{arg max} \quad p(l|x)</script><p>对于长度为$r$的序列$\pmb q$，前$p$和后$p$个字符序列表示为$\pmb q<em>{1:p}$、$\pmb q</em>{r-p:r}$，其对应的标签序列为$\pmb l$.</p>
+<p>对于任意输出序列$\pi$​，其前$t$​时刻经过$B$​变换后得到的字符序列为$l<em>{1:s}$​，即$B(\pi</em>{1:t})=\pmb l_{1:s}$​</p>
+<p>则得到此字符序列的概率为</p>
+<script type="math/tex; mode=display">
+\alpha_{t}(s) \stackrel{\text { def }}{=} \sum_{\mathcal{B}\left(\pi_{1: t}\right)={\pmb{l}}_{1: s}} \prod_{t^{\prime}=1}^{t} y_{\pi_{t^{\prime}}}^{t^{\prime}}</script><p>为了能够在输出中得到空格($blank$)，在$\pmb l$的两端和相邻字符中间插入$blank$，得到长度为$2|\pmb l|+1$的标签序列$\pmb l’$</p>
+<p>当$t=1$时，要么路径节点处于$blank$，要么处于$l$的第一个字符。即</p>
+<script type="math/tex; mode=display">
+\alpha_{1}(1)=y_{b}^{1}\\
+\alpha_{1}(2)=y_{1_{1}}^{1}\\
+\alpha_{1}(s)=0, \quad \forall s>2</script><p>另外，$\alpha<em>{t}(s)$​可以用$\alpha</em>{t-1}(s)$​、$\alpha<em>{t-1}(s-1)$​、$\alpha</em>{t-1}(s-2)$​表示</p>
+<script type="math/tex; mode=display">
+\alpha_{t}(s)=\left\{\begin{array}{lr}
+(\alpha_{t-1}(s)+\alpha_{t-1}(s-1)) y_{l_{s}^{\prime}}^{t} & \text { if } l_{s}^{\prime}=b \text { or } l_{s-2}^{\prime}=l_{s}^{\prime} \\
+\left(\alpha_{t-1}(s)+\alpha_{t-1}(s-1)+\alpha_{t-1}(s-2)\right) y_{l_{s}^{\prime}}^{t} & \text { otherwise }
+\end{array}\right.</script><p><img src="/img/forward.png" srcset="/img/loading.gif" lazyload alt=""></p>
+<p>$\alpha_{t}(s)=0, \forall s&lt;\left|\mathbf{l}^{\prime}\right|-2(T-t)-1$​</p>
+<p>因为一个时间跨度最多只能跨越两个字符，如果每时刻都跨越两个字符，则在$T-t$时间跨度内，最多能走$2(T-t)$个字符，如果剩余的字符个数$\left|\mathbf{l^{\prime}}\right|- s$​大于这个数目，则最终在$T$时刻不能到达字符尾端，所以在这种情况下前向概率为0</p>
+<script type="math/tex; mode=display">
+p(\mathbf{l} \mid \mathbf{x})=\alpha_{T}\left(\left|\mathbf{l}^{\prime}\right|\right)+\alpha_{T}\left(\left|\mathbf{l}^{\prime}\right|-1\right)</script><p>最终字符串标签的输出概率就是以$blank$结尾的前向概率与非$blank$​结尾的前向概率之和。</p>
+<p>同样可以定义后向概率。</p>
+<script type="math/tex; mode=display">
+\beta_{t}(s) \stackrel{\text { def }}{=} \sum_{\mathcal{B}\left(\pi_{t: T}\right)=1_{s:|\pmb l|}} \prod_{t^{\prime}=t}^{T} y_{\pi_{t^{\prime}}}^{t^{\prime}}</script><script type="math/tex; mode=display">
+\begin{aligned}
+\beta_{T}\left(\left|\pmb l^{\prime}\right|\right) &=y_{b}^{T} \\
+\beta_{T}\left(\left|\pmb l^{\prime}\right|-1\right) &=y_{\pmb l_{|\pmb l|}}^{T} \\
+\beta_{T}(s) &=0, \forall s<\left|\pmb l^{\prime}\right|-1
+\end{aligned}</script><script type="math/tex; mode=display">
+\beta_{t}(s)= \begin{cases}(\beta_{t+1}(s)+\beta_{t+1}(s+1)) y_{l_{s}^{\prime}}^{t} & \text { if } l_{s}^{\prime}=b \text { or } l_{s+2}^{\prime}=l_{s}^{\prime} \\ \left(\beta_{t+1}(s)+\beta_{t+1}(s+1)+\beta_{t+1}(s+2)\right) y_{l_{s}^{\prime}}^{t} & \text { otherwise }\end{cases}</script><p><img src="/img/backward.png" srcset="/img/loading.gif" lazyload alt=""></p>
+<p>$\beta_{t}(s)=0,\forall s&gt;2 t$​</p>
+<p>在$t$时间跨度内，最多走$2t$个字符，当前字符不可能走到$2t$之后的字符，所以后向概率为0。</p>
+<p>对于输入$(x,z)$​，目标函数为极小化</p>
+<script type="math/tex; mode=display">
+O^{M L}\left(S, \mathcal{N}_{w}\right)=-\sum_{(\mathbf{x}, \mathbf{z}) \in S} \ln (p(\mathbf{z} \mid \mathbf{x}))</script><p>为了使用梯度下降法进行优化求解，求关于每个分量的梯度</p>
+<script type="math/tex; mode=display">
+\frac{\partial O^{M L}\left(\{(\mathbf{x}, \mathbf{z})\}, \mathcal{N}_{w}\right)}{\partial y_{k}^{t}}=-\frac{\partial \ln (p(\mathbf{z} \mid \mathbf{x}))}{\partial y_{k}^{t}}</script><p>下面考虑前向和后向概率的乘积</p>
+<p>根据定义</p>
+<script type="math/tex; mode=display">
+\alpha_{t}(s) \beta_{t}(s)=\sum_{\pi \in \mathcal{B}^{-1}(1): \atop \pi_{t}=l_{s}} y_{l_{s}}^{t} \prod_{t=1}^{T} y_{\pi_{t}}^{t}</script><p>所以</p>
+<script type="math/tex; mode=display">
+\frac{\alpha_{t}(s) \beta_{t}(s)}{y_{l_{s}}^{t}}=\sum_{\pi \in \mathcal{B}^{-1}(1): \atop \pi_{t}=l_{s}} p(\pi \mid \mathbf{x})</script><p>即在$t$时刻，路径到达$l_s$的前向概率与$t$时刻到达$l_s$、$T-t$走完全程的后向概率乘积，再处于$t$时刻输出字符为$l_s$的概率，等于所有在$t$时刻经过$l_s$的字符序列路径之和。</p>
+<p>所以</p>
+<script type="math/tex; mode=display">
+p(\mathbf{l} \mid \mathbf{x})=\sum_{t=1}^{T} \sum_{s=1}^{|\mathbf{l}|} \frac{\alpha_{t}(s) \beta_{t}(s)}{y_{l_{s}}^{t}} \tag{1.2}</script><p>里面的求和表示在$t$时刻经过所有可能的字符概率之和，外面的对时间求和，表示整个标签字符串。</p>
+<p>在这里，$l$和$z$是等价的，那么自然地，梯度就能够求出来，问题也就解决了。</p>
+<p>流程梳理</p>
+<p>假设现在我们要训练识别英文26个小写字母的模型，则</p>
+<script type="math/tex; mode=display">
+L=\{a,b,c,\cdots,x,y,z\} \\
+L'=\{a,b,c,\cdots,x,y,z,-\}</script><p>$-$代表空白字符$blank$​​​</p>
+<p><img src="/img/label.png" srcset="/img/loading.gif" lazyload alt=""></p>
+<p>如果我们要识别上面图的文字，标签为字符串$l=z=\text {label}$​​，假设图片的尺寸为$100 \times 32 \times 3$​​（RGB三个通道）,经过CNN转换成尺寸为$512 \times 25 \times 1$​​的图层，经过RNN层并softmax处理后，最终得到的输出尺寸为$27\times 25$​​的数组$\pmb y$​​。$25$​​为时间长度$T$​​，$27$​​代表$L’$​​​的元素个数。</p>
+<p>那么</p>
+<script type="math/tex; mode=display">
+\pmb y=(\vec y^1,\vec y^2,\cdots,\vec y^{25})\\
+\vec y^i=(p^i_a,p^i_b,\cdots,p^i_z, p^{i}_-)</script><p>$\vec y^i$每个分量表示属于对应的字母的概率，也即公式(1.1)中对应的$y_{\pi_t}^{t}$，并且所有分量的概率之和为1。</p>
+<p>对于标签字符串$\text {label}$，$l’=\text{-l-a-b-e-l-}$，首先$\alpha<em>{1}(1)=y</em>{-}^{1},\alpha<em>{1}(2)=y</em>{l}^{1}$，也就是第一个字符为空白字符的概率，根据前向概率公式，可以依次推出任意的$\alpha_{t}(s)$，后向概率也同样如此。那么根据公式(1.2)就能够得到$p(\mathbf{l} \mid \mathbf{x})\stackrel{\text { def }}{=}p(\textNaN|\mid \mathbf{x})$​的概率，这样就可以算得梯度，能够用于更新网络。</p>
+<p>RNN输入输出</p>
+<p>[batch_size, time_steps, input_dims]</p>
+<p>如</p>
+<script type="math/tex; mode=display">
+\left[
+\begin{matrix}
+[[X_1^1,X_2^1,X_3^1] & [X_1^2,X_2^2,X_3^2]& [X_1^3,X_2^3,X_3^3] & [X_1^4,X_2^4,X_3^4]]
+\\
+[[Y_1^1,Y_2^1,Y_3^1] & [Y_1^2,Y_2^2,Y_3^2]& [Y_1^3,Y_2^3,Y_3^3] & [Y_1^4,Y_2^4,Y_3^4]]
+\\
+[[Z_1^1,Z_2^1,Z_3^1] & [Z_1^2,Z_2^2,Z_3^2]& [Z_1^3,Z_2^3,Z_3^3] & [Z_1^4,Z_2^4,Z_3^4]]
+\\
+[[U_1^1,U_1^2,U_1^3] & [U_1^1,U_1^2,U_1^3]& [U_1^1,U_1^2,U_1^3] & [U_1^1,U_1^2U_1^3]]
+\end{matrix}
+\right]</script><p>时间步长为4</p>
+<p>输入维度为3</p>
+<p>如果batch_size为2</p>
+<p>第一个batch：</p>
+<script type="math/tex; mode=display">
+\begin{matrix}
+[[X_1^1,X_2^1,X_3^1] & [X_1^2,X_2^2,X_3^2]& [X_1^3,X_2^3,X_3^3] & [X_1^4,X_2^4,X_3^4]]
+\\
+[[Y_1^1,Y_2^1,Y_3^1] & [Y_1^2,Y_2^2,Y_3^2]& [Y_1^3,Y_2^3,Y_3^3] & [Y_1^4,Y_2^4,Y_3^4]]
+\end{matrix}</script><p>Reference</p>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/43534801">一文读懂CRNN+CTC文字识别</a></p>
+<p>Paper</p>
+<p><a target="_blank" rel="noopener" href="https://mediatum.ub.tum.de/doc/1292048/file.pdf">Connectionist Temporal Classification: Labelling Unsegmented Sequence Data with Recurrent Neural Networks</a></p>
 
             </div>
             <hr>
@@ -276,7 +368,9 @@
                   <div class="post-meta mr-3">
                     <i class="iconfont icon-category"></i>
                     
-                      <a class="hover-with-bg" href="/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%AE%97%E6%B3%95/">深度学习算法</a>
+                      <a class="hover-with-bg" href="/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">深度学习</a>
+                    
+                      <a class="hover-with-bg" href="/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E8%AE%BA%E6%96%87%E8%A7%A3%E8%AF%BB/">论文解读</a>
                     
                   </div>
                 
@@ -284,7 +378,7 @@
                   <div class="post-meta">
                     <i class="iconfont icon-tags"></i>
                     
-                      <a class="hover-with-bg" href="/tags/CNN/">CNN</a>
+                      <a class="hover-with-bg" href="/tags/OCR/">OCR</a>
                     
                   </div>
                 
@@ -301,18 +395,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2021/12/07/ocr-ctc/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">OCR-ASR基础：CTC解读</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2021/12/03/django-01/">
-                        <span class="hidden-mobile">Django框架学习</span>
+                      <a href="/2021/12/04/convolution_layer/">
+                        <span class="hidden-mobile">卷积层、池化层图解</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

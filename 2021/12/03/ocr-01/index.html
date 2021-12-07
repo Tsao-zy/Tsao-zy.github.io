@@ -16,24 +16,24 @@
   <meta name="description" content="">
   <meta name="author" content="tsao-zy">
   <meta name="keywords" content="">
-  <meta name="description" content="AdvancedEASTAdvancedEAST是文字定位的经典模型，网络结构主体为VGG16，在本文中，重点关图像数据处理、损失函数和网络输出处理等内容。  网络结构    图像预处理——preprocess.py batch_reorder_vertexes reorder_vetexes的批量处理  reorder_vertexes 在标签中，有每个文字条目的位置，该函数主要是重新对位置进行">
+  <meta name="description" content="AdvancedEASTc&#x3D;±a2+b2c &#x3D; \pm\sqrt{a^2 + b^2}c&#x3D;±a2+b2​ AdvancedEAST是文字定位的经典模型，网络结构主体为VGG16，在本文中，重点关图像数据处理、损失函数和网络输出处理等内容。  网络结构    图像预处理——preprocess.py batch_reorder_vertexes reorder_vetexes的批量处理  reord">
 <meta property="og:type" content="article">
 <meta property="og:title" content="OCR识别算法(一) 文字定位">
 <meta property="og:url" content="http://example.com/2021/12/03/ocr-01/index.html">
 <meta property="og:site_name" content="Tsao">
-<meta property="og:description" content="AdvancedEASTAdvancedEAST是文字定位的经典模型，网络结构主体为VGG16，在本文中，重点关图像数据处理、损失函数和网络输出处理等内容。  网络结构    图像预处理——preprocess.py batch_reorder_vertexes reorder_vetexes的批量处理  reorder_vertexes 在标签中，有每个文字条目的位置，该函数主要是重新对位置进行">
+<meta property="og:description" content="AdvancedEASTc&#x3D;±a2+b2c &#x3D; \pm\sqrt{a^2 + b^2}c&#x3D;±a2+b2​ AdvancedEAST是文字定位的经典模型，网络结构主体为VGG16，在本文中，重点关图像数据处理、损失函数和网络输出处理等内容。  网络结构    图像预处理——preprocess.py batch_reorder_vertexes reorder_vetexes的批量处理  reord">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://example.com/img/EAST%E7%BD%91%E7%BB%9C%E7%BB%93%E6%9E%84%E8%AF%B4%E6%98%8E.png">
+<meta property="og:image" content="http://example.com/img/EAST网络结构说明.png">
 <meta property="og:image" content="http://example.com/img/rectan.png">
 <meta property="og:image" content="http://example.com/img/nms-02.png">
 <meta property="og:image" content="http://example.com/img/nms-01.png">
 <meta property="article:published_time" content="2021-12-02T16:10:08.689Z">
-<meta property="article:modified_time" content="2021-12-04T17:04:25.888Z">
+<meta property="article:modified_time" content="2021-12-07T16:22:39.480Z">
 <meta property="article:author" content="tsao-zy">
 <meta property="article:tag" content="OCR">
 <meta property="article:tag" content="AdvancedEAST">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="http://example.com/img/EAST%E7%BD%91%E7%BB%9C%E7%BB%93%E6%9E%84%E8%AF%B4%E6%98%8E.png">
+<meta name="twitter:image" content="http://example.com/img/EAST网络结构说明.png">
   
   <title>OCR识别算法(一) 文字定位 - Tsao</title>
 
@@ -76,7 +76,11 @@
   </script>
   <script  src="/js/utils.js" ></script>
   <script  src="/js/color-schema.js" ></script>
-<meta name="generator" content="Hexo 5.4.0"></head>
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.0"></head>
 
 
 <body>
@@ -251,10 +255,22 @@
             <h1 style="display: none">OCR识别算法(一) 文字定位</h1>
             
             <div class="markdown-body">
-              <h3 id="AdvancedEAST"><a href="#AdvancedEAST" class="headerlink" title="AdvancedEAST"></a><strong>AdvancedEAST</strong></h3><p>AdvancedEAST是文字定位的经典模型，网络结构主体为VGG16，在本文中，重点关图像数据处理、损失函数和网络输出处理等内容。</p>
+              <h3 id="AdvancedEAST"><a href="#AdvancedEAST" class="headerlink" title="AdvancedEAST"></a><strong>AdvancedEAST</strong></h3><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>c</mi><mo>=</mo><mo>±</mo><msqrt><mrow><msup><mi>a</mi><mn>2</mn></msup><mo>+</mo><msup><mi>b</mi><mn>2</mn></msup></mrow></msqrt></mrow><annotation encoding="application/x-tex">c = \pm\sqrt{a^2 + b^2}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathnormal">c</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1.04em;vertical-align:-0.12661100000000003em;"></span><span class="mord">±</span><span class="mord sqrt"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.913389em;"><span class="svg-align" style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord" style="padding-left:0.833em;"><span class="mord"><span class="mord mathnormal">a</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.740108em;"><span style="top:-2.9890000000000003em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord"><span class="mord mathnormal">b</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.740108em;"><span style="top:-2.9890000000000003em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span></span></span><span style="top:-2.873389em;"><span class="pstrut" style="height:3em;"></span><span class="hide-tail" style="min-width:0.853em;height:1.08em;"><svg width='400em' height='1.08em' viewBox='0 0 400000 1080' preserveAspectRatio='xMinYMin slice'><path d='M95,702
+c-2.7,0,-7.17,-2.7,-13.5,-8c-5.8,-5.3,-9.5,-10,-9.5,-14
+c0,-2,0.3,-3.3,1,-4c1.3,-2.7,23.83,-20.7,67.5,-54
+c44.2,-33.3,65.8,-50.3,66.5,-51c1.3,-1.3,3,-2,5,-2c4.7,0,8.7,3.3,12,10
+s173,378,173,378c0.7,0,35.3,-71,104,-213c68.7,-142,137.5,-285,206.5,-429
+c69,-144,104.5,-217.7,106.5,-221
+l0 -0
+c5.3,-9.3,12,-14,20,-14
+H400000v40H845.2724
+s-225.272,467,-225.272,467s-235,486,-235,486c-2.7,4.7,-9,7,-19,7
+c-6,0,-10,-1,-12,-3s-194,-422,-194,-422s-65,47,-65,47z
+M834 80h400000v40h-400000z'/></svg></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.12661100000000003em;"><span></span></span></span></span></span></span></span></span>
+<p>AdvancedEAST是文字定位的经典模型，网络结构主体为VGG16，在本文中，重点关图像数据处理、损失函数和网络输出处理等内容。</p>
 <ul>
 <li><p>网络结构</p>
-<p><img src="/img/EAST%E7%BD%91%E7%BB%9C%E7%BB%93%E6%9E%84%E8%AF%B4%E6%98%8E.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/img/EAST网络结构说明.png" srcset="/img/loading.gif" lazyload alt=""></p>
 </li>
 </ul>
 <h2 id="图像预处理——preprocess-py"><a href="#图像预处理——preprocess-py" class="headerlink" title="图像预处理——preprocess.py"></a>图像预处理——preprocess.py</h2><ul>
@@ -263,9 +279,8 @@
 </li>
 <li><p>reorder_vertexes</p>
 <p>在标签中，有每个文字条目的位置，该函数主要是重新对位置进行排序。以图片左上角为坐标原点，保证顺序如下图</p>
-<p><img src="/img/rectan.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/img/rectan.png" srcset="/img/loading.gif" lazyload alt=""></p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">xy_list = np.array([[<span class="hljs-number">48.45</span>, <span class="hljs-number">231.83</span>], [<span class="hljs-number">17.87</span>, <span class="hljs-number">178.79</span>], [<span class="hljs-number">179.84</span>, <span class="hljs-number">11.1</span>], [<span class="hljs-number">228.79</span>, <span class="hljs-number">47.95</span>]])<br></code></pre></td></tr></table></figure>
-
 <p>确定的算法为</p>
 <ul>
 <li>确定第1个位置。首先以$x$坐标最小为基准选取，$x$如果相等，选取$y$较小的为第1个位置；</li>
@@ -299,20 +314,22 @@
 <li><p>nms (Non-Maximum Suppression) 算法</p>
 <p>目标检测中消除多余的（交叉）的窗口</p>
 <p>参考链接：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/zf-blog/p/8532228.html">https://www.cnblogs.com/zf-blog/p/8532228.html</a></p>
-<p>在AdvancedEAST中，nms算法不太相同，主要有以下步骤：</p>
+</li>
+</ul>
+<p>  在AdvancedEAST中，nms算法不太相同，主要有以下步骤：</p>
 <ul>
 <li>将所有内部点的位置坐标聚类，聚类依据为是否为 集合内的所有点是否是连续的一条横线</li>
 <li>将上述的集合再聚类，如果所有的线都是上下连续的区域，那么就是同一个类别</li>
 <li>针对2中聚类的集合簇，判断簇中的坐标点对应的位置是否为边界区域，如果是，那么求出这个点的原始位置，再分别求出四个顶点的位置平均值，对应了最终四个顶点位置预测值</li>
 <li>score为每个顶点的元素个数</li>
 </ul>
-</li>
+<ul>
 <li><p>should_merge</p>
 <p>给定一个坐标点集合region，判断$(i, j)$​左边的点$(i, j - 1)$是否在集合内</p>
 </li>
 <li><p>region_neighbor</p>
 <p>每个水平连续的点集，将之往下移动一个单位，再分别加上两端的相邻点</p>
-<p><img src="/img/nms-02.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/img/nms-02.png" srcset="/img/loading.gif" lazyload alt=""></p>
 </li>
 <li><p>rec_region_merge</p>
 <p>针对<code>nms</code>处理后的坐标点分类集合，判断每个点集的正下方是否与分类集合有重合，如果有，那么他们就属于一类，递归的处理这个类中的元素和剩下的集合。</p>
@@ -322,10 +339,10 @@
 </li>
 <li><p>nms</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs python">region_list = []<br><span class="hljs-keyword">for</span> i, j <span class="hljs-keyword">in</span> <span class="hljs-built_in">zip</span>(activation_pixels[<span class="hljs-number">0</span>], activation_pixels[<span class="hljs-number">1</span>]):<br>    merge = <span class="hljs-literal">False</span><br>    <span class="hljs-keyword">for</span> k <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-built_in">len</span>(region_list)):<br>        <span class="hljs-keyword">if</span> should_merge(region_list[k], i, j):<br>            region_list[k].add((i, j))<br>            merge = <span class="hljs-literal">True</span><br>            <span class="hljs-comment"># Fixme 重叠文本区域处理，存在和多个区域邻接的pixels，先都merge试试</span><br>            <span class="hljs-comment"># break</span><br>            <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> merge:<br>                region_list.append(&#123;(i, j)&#125;)<br></code></pre></td></tr></table></figure>
-
 <p><code>activation_pixels</code>为坐标点集合，这段代码最终展现的效果是将所有坐标点按照是否水平相邻不间断连接分为不同的集合</p>
-<p><img src="/img/nms-01.png" srcset="/img/loading.gif" lazyload></p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><code class="hljs python">D = region_group(region_list)<br><span class="hljs-comment"># D = [[0, 1, 2, 3], [4, 5, 6, 7], [8, 9, 10, 11, 12]]</span><br><span class="hljs-comment"># D中的元素，为每个文字区域对应的region_list中set下标 probably</span><br>quad_list = np.zeros((<span class="hljs-built_in">len</span>(D), <span class="hljs-number">4</span>, <span class="hljs-number">2</span>))<br>score_list = np.zeros((<span class="hljs-built_in">len</span>(D), <span class="hljs-number">4</span>))<br><span class="hljs-keyword">for</span> group, g_th <span class="hljs-keyword">in</span> <span class="hljs-built_in">zip</span>(D, <span class="hljs-built_in">range</span>(<span class="hljs-built_in">len</span>(D))):<br>    total_score = np.zeros((<span class="hljs-number">4</span>, <span class="hljs-number">2</span>))<br>    <span class="hljs-comment"># group = [0, 1, 2, 3]</span><br>    <span class="hljs-keyword">for</span> row <span class="hljs-keyword">in</span> group:<br>        <span class="hljs-comment"># row = 0</span><br>        <span class="hljs-keyword">for</span> ij <span class="hljs-keyword">in</span> region_list[row]:<br>            <span class="hljs-comment"># region_list[row], for example &#123;(0, 1), (0, 2), (0, 3), (0, 4)&#125;</span><br>            <span class="hljs-comment"># ij = (0, 1) ij为位置坐标</span><br>            score = predict[ij[<span class="hljs-number">0</span>], ij[<span class="hljs-number">1</span>], <span class="hljs-number">1</span>] <span class="hljs-comment"># channel为1时，代表是否在边界区域</span><br>            <span class="hljs-keyword">if</span> score &gt;= threshold:<br>                ith_score = predict[ij[<span class="hljs-number">0</span>], ij[<span class="hljs-number">1</span>], <span class="hljs-number">2</span>:<span class="hljs-number">3</span>] <span class="hljs-comment">#</span><br>                <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> (cfg.trunc_threshold &lt;= ith_score &lt; <span class="hljs-number">1</span> -<br>                        cfg.trunc_threshold):<br>                    ith = <span class="hljs-built_in">int</span>(np.around(ith_score)) <span class="hljs-comment"># ith = 0 左边，ith = 1， 右边</span><br>                    total_score[ith * <span class="hljs-number">2</span>:(ith + <span class="hljs-number">1</span>) * <span class="hljs-number">2</span>] += score<br>                    <span class="hljs-comment"># ith = 0, 填充 0 1位置</span><br>                    <span class="hljs-comment"># ith = 1, 填充 2 3位置</span><br>                    px = (ij[<span class="hljs-number">1</span>] + <span class="hljs-number">0.5</span>) * cfg.pixel_size<br>                    py = (ij[<span class="hljs-number">0</span>] + <span class="hljs-number">0.5</span>) * cfg.pixel_size<br>                    p_v = [px, py] + np.reshape(predict[ij[<span class="hljs-number">0</span>], ij[<span class="hljs-number">1</span>], <span class="hljs-number">3</span>:<span class="hljs-number">7</span>],<br>                                          (<span class="hljs-number">2</span>, <span class="hljs-number">2</span>))<br>                    <span class="hljs-comment"># 回归原始位置</span><br>                    quad_list[g_th, ith * <span class="hljs-number">2</span>:(ith + <span class="hljs-number">1</span>) * <span class="hljs-number">2</span>] += score * p_v<br>    score_list[g_th] = total_score[:, <span class="hljs-number">0</span>]<br>    <span class="hljs-comment"># 理想情况下， score非0即1, 那么total_score中就是属于每个角的元素个数</span><br>    <span class="hljs-comment"># qual_list + pv,  再 / total_score 就是这些点的平均值，也就是寻找到了每个顶点的位置</span><br>    <span class="hljs-comment"># score 统计左边 和 右边边界区域元素个数</span><br>    quad_list[g_th] /= (total_score + cfg.epsilon)<br></code></pre></td></tr></table></figure></li>
+<p><img src="/img/nms-01.png" srcset="/img/loading.gif" lazyload alt=""></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><code class="hljs python">D = region_group(region_list)<br><span class="hljs-comment"># D = [[0, 1, 2, 3], [4, 5, 6, 7], [8, 9, 10, 11, 12]]</span><br><span class="hljs-comment"># D中的元素，为每个文字区域对应的region_list中set下标 probably</span><br>quad_list = np.zeros((<span class="hljs-built_in">len</span>(D), <span class="hljs-number">4</span>, <span class="hljs-number">2</span>))<br>score_list = np.zeros((<span class="hljs-built_in">len</span>(D), <span class="hljs-number">4</span>))<br><span class="hljs-keyword">for</span> group, g_th <span class="hljs-keyword">in</span> <span class="hljs-built_in">zip</span>(D, <span class="hljs-built_in">range</span>(<span class="hljs-built_in">len</span>(D))):<br>    total_score = np.zeros((<span class="hljs-number">4</span>, <span class="hljs-number">2</span>))<br>    <span class="hljs-comment"># group = [0, 1, 2, 3]</span><br>    <span class="hljs-keyword">for</span> row <span class="hljs-keyword">in</span> group:<br>        <span class="hljs-comment"># row = 0</span><br>        <span class="hljs-keyword">for</span> ij <span class="hljs-keyword">in</span> region_list[row]:<br>            <span class="hljs-comment"># region_list[row], for example &#123;(0, 1), (0, 2), (0, 3), (0, 4)&#125;</span><br>            <span class="hljs-comment"># ij = (0, 1) ij为位置坐标</span><br>            score = predict[ij[<span class="hljs-number">0</span>], ij[<span class="hljs-number">1</span>], <span class="hljs-number">1</span>] <span class="hljs-comment"># channel为1时，代表是否在边界区域</span><br>            <span class="hljs-keyword">if</span> score &gt;= threshold:<br>                ith_score = predict[ij[<span class="hljs-number">0</span>], ij[<span class="hljs-number">1</span>], <span class="hljs-number">2</span>:<span class="hljs-number">3</span>] <span class="hljs-comment">#</span><br>                <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> (cfg.trunc_threshold &lt;= ith_score &lt; <span class="hljs-number">1</span> -<br>                        cfg.trunc_threshold):<br>                    ith = <span class="hljs-built_in">int</span>(np.around(ith_score)) <span class="hljs-comment"># ith = 0 左边，ith = 1， 右边</span><br>                    total_score[ith * <span class="hljs-number">2</span>:(ith + <span class="hljs-number">1</span>) * <span class="hljs-number">2</span>] += score<br>                    <span class="hljs-comment"># ith = 0, 填充 0 1位置</span><br>                    <span class="hljs-comment"># ith = 1, 填充 2 3位置</span><br>                    px = (ij[<span class="hljs-number">1</span>] + <span class="hljs-number">0.5</span>) * cfg.pixel_size<br>                    py = (ij[<span class="hljs-number">0</span>] + <span class="hljs-number">0.5</span>) * cfg.pixel_size<br>                    p_v = [px, py] + np.reshape(predict[ij[<span class="hljs-number">0</span>], ij[<span class="hljs-number">1</span>], <span class="hljs-number">3</span>:<span class="hljs-number">7</span>],<br>                                          (<span class="hljs-number">2</span>, <span class="hljs-number">2</span>))<br>                    <span class="hljs-comment"># 回归原始位置</span><br>                    quad_list[g_th, ith * <span class="hljs-number">2</span>:(ith + <span class="hljs-number">1</span>) * <span class="hljs-number">2</span>] += score * p_v<br>    score_list[g_th] = total_score[:, <span class="hljs-number">0</span>]<br>    <span class="hljs-comment"># 理想情况下， score非0即1, 那么total_score中就是属于每个角的元素个数</span><br>    <span class="hljs-comment"># qual_list + pv,  再 / total_score 就是这些点的平均值，也就是寻找到了每个顶点的位置</span><br>    <span class="hljs-comment"># score 统计左边 和 右边边界区域元素个数</span><br>    quad_list[g_th] /= (total_score + cfg.epsilon)<br></code></pre></td></tr></table></figure>
+</li>
 </ul>
 
             </div>
@@ -521,6 +538,48 @@
 
 
 
+
+  
+
+  
+    <!-- MathJax -->
+    <script>
+      MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']]
+        },
+        loader: {
+          load: ['ui/lazy']
+        },
+        options: {
+          renderActions: {
+            findScript: [10, doc => {
+              document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+                const display = !!node.type.match(/; *mode=display/);
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                const text = document.createTextNode('');
+                node.parentNode.replaceChild(text, node);
+                math.start = { node: text, delim: '', n: 0 };
+                math.end = { node: text, delim: '', n: 0 };
+                doc.math.push(math);
+              });
+            }, '', false],
+            insertedScript: [200, () => {
+              document.querySelectorAll('mjx-container').forEach(node => {
+                let target = node.parentNode;
+                if (target.nodeName.toLowerCase() === 'li') {
+                  target.parentNode.classList.add('has-jax');
+                }
+              });
+            }, '', false]
+          }
+        }
+      };
+    </script>
+
+    <script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" ></script>
+
+  
 
 
 
